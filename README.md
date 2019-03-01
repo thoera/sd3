@@ -2,7 +2,7 @@
 
 ## Objectif
 
-Ce package implémente plusieurs fonctions ayant pour but de faciliter la mise en forme de données sous la forme attendue par `networkD3` ou `sankeyD3`.
+Ce package implémente plusieurs fonctions ayant pour but de faciliter la préparation des données au format attendu par `networkD3` ou `sankeyD3`.
 
 ## Installation
 
@@ -17,7 +17,6 @@ remotes::install_github("thoera/sd3")
 
 ```r
 library("sd3")
-library("sankeyD3")
 
 str(data_1)
 
