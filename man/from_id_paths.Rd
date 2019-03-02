@@ -13,18 +13,17 @@ from_id_paths(data, cols = NULL, path = NULL, sep = "-",
 être dans une colonne unique ou bien dans des colonnes distinctes.}
 
 \item{cols}{Un vecteur de chaînes de caractères (par défaut = NULL). Les
-colonnes contenant les éléments des parcours individuels. Le nom de ces
-colonnes doit être uniformisé sous la forme <prefix>_<niveau_de_profondeur>
-(par exemple "depth_1", "depth_2", etc.). Utiliser la valeur NULL si les
-parcours sont dans une colonne unique.}
+colonnes contenant les éléments des parcours individuels. L'ordre est
+important, il détermine le sens des éléments du parcours. Utiliser la
+valeur NULL si les éléments des parcours sont dans une colonne unique.}
 
 \item{path}{Une chaîne de caractères (par défaut = NULL). Le nom de la
 colonne si les parcours individuels sont contenus dans une seule colonne
 qui doit être séparée. Utiliser la valeur NULL si les éléments des parcours
 sont dans des colonnes distinctes.}
 
-\item{sep}{Une chaîne de caractères (par défaut = "-"). Le séparateur
-utilisé dans la colonne path.}
+\item{sep}{Une chaîne de caractères (par défaut = "-"). Le séparateur utilisé
+dans la colonne path.}
 
 \item{depth}{Un entier (par défaut = NULL). Conserve l'ensemble des parcours
 d'une profondeur donnée. Si NULL, les données sont laissées comme telles.}
@@ -40,4 +39,13 @@ Un dataframe contenant l'interaction "source", l'interaction "cible",
 \description{
 Crée un dataframe sous la forme interaction "source", interaction "cible",
 comptage et niveau de profondeur associés.
+}
+\examples{
+# parcours dans une colonne unique
+from_id_paths(data = data_3, path = "parcours", sep = "-")
+
+# parcours dans plusieurs colonnes
+cols <- paste0("contact_", 1:5)
+from_id_paths(data = data_4, cols = cols)
+
 }

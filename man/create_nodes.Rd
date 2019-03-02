@@ -26,3 +26,10 @@ Un dataframe contenant les "nodes".
 \description{
 Crée les "nodes".
 }
+\examples{
+cols <- paste0("contact_", 1:5)
+paths <- from_id_paths(data = data_4, cols = cols)
+
+create_nodes(data = paths)
+
+}

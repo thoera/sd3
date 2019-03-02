@@ -34,3 +34,11 @@ Un dataframe contenant les "links".
 \description{
 Crée les "links".
 }
+\examples{
+cols <- paste0("contact_", 1:5)
+paths <- from_id_paths(data = data_4, cols = cols)
+
+nodes <- create_nodes(data = paths)
+create_links(data = paths, nodes = nodes)
+
+}

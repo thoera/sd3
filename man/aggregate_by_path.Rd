@@ -10,18 +10,17 @@ aggregate_by_path(data, cols = NULL, path = NULL, sep = "-")
 \item{data}{Un dataframe avec des parcours par individu.}
 
 \item{cols}{Un vecteur de chaînes de caractères (par défaut = NULL). Les
-colonnes contenant les éléments des parcours individuels. Le nom de ces
-colonnes doit être uniformisé sous la forme <prefix>_<niveau_de_profondeur>
-(par exemple "depth_1", "depth_2", etc.). Utiliser la valeur NULL si les
-parcours sont dans une colonne unique.}
+colonnes contenant les éléments des parcours individuels. L'ordre est
+important, il détermine le sens des éléments du parcours. Utiliser la
+valeur NULL si les éléments des parcours sont dans une colonne unique.}
 
 \item{path}{Une chaîne de caractères (par défaut = NULL). Le nom de la
 colonne si les parcours individuels sont contenus dans une seule colonne
 qui doit être séparée. Utiliser la valeur NULL si les éléments des parcours
 sont dans des colonnes distinctes.}
 
-\item{sep}{Une chaîne de caractères (par défaut = "-"). Le séparateur
-utilisé dans la colonne path.}
+\item{sep}{Une chaîne de caractères (par défaut = "-"). Le séparateur utilisé
+dans la colonne path.}
 }
 \value{
 Un dataframe avec un comptage des parcours.

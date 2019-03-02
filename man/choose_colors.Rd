@@ -17,3 +17,7 @@ Un vecteur associant interactions et couleurs.
 \description{
 Associe des couleurs à des interactions.
 }
+\examples{
+choose_colors(nodes = c("A", "B"), colors = c("#50BE87", "#4BB4E6"))
+
+}
