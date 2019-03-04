@@ -28,3 +28,12 @@ Un dataframe avec un comptage des parcours.
 \description{
 Agrège des parcours individuels.
 }
+\examples{
+# parcours dans une colonne unique
+aggregate_by_path(data = data_3, path = "parcours", sep = "-")
+
+# parcours dans plusieurs colonnes
+cols <- paste0("contact_", 1:5)
+aggregate_by_path(data = data_4, cols = cols)
+
+}

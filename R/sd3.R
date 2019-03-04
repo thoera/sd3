@@ -173,6 +173,16 @@ from_aggregated_paths <- function(data, cols = NULL, path = NULL,
 #'   dans la colonne path.
 #'
 #' @return Un dataframe avec un comptage des parcours.
+#'
+#' @examples
+#' # parcours dans une colonne unique
+#' aggregate_by_path(data = data_3, path = "parcours", sep = "-")
+#'
+#' # parcours dans plusieurs colonnes
+#' cols <- paste0("contact_", 1:5)
+#' aggregate_by_path(data = data_4, cols = cols)
+#'
+#' @export
 aggregate_by_path <- function(data, cols = NULL, path = NULL, sep = "-") {
   if (is.null(cols) && is.null(path)) {
     stop("You have to use one of the 'cols' or 'path' argument.")
