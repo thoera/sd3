@@ -3,7 +3,7 @@ Title: Easy data preparation for using sankeyD3
 Version: 0.1.0.9000
 Authors@R: person("Thomas", "Erard", email = "erard.thomas@gmail.com", role = c("aut", "cre"))
 Description: Easy data preparation for using sankeyD3.
-Depends: R (>= 3.5.0)
+Depends: R (>= 3.4.0)
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
