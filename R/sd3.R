@@ -182,6 +182,8 @@ from_aggregated_paths <- function(data, cols = NULL, path = NULL,
 #' cols <- paste0("contact_", 1:5)
 #' aggregate_by_path(data = data_4, cols = cols)
 #'
+#' @importFrom data.table :=
+#' @importFrom data.table .SD
 #' @export
 aggregate_by_path <- function(data, cols = NULL, path = NULL, sep = "-") {
   if (is.null(cols) && is.null(path)) {
@@ -190,30 +192,31 @@ aggregate_by_path <- function(data, cols = NULL, path = NULL, sep = "-") {
   if (!is.null(cols) && !is.null(path)) {
     stop("You cannot use the 'cols' and the 'path' argument at the same time")
   }
-
-  data[["count"]] <- 1L
+  data_ <- data.table::copy(data)
+  data.table::setDT(data_)
+  data_[, ("count") := 1L]
 
   if (is.null(cols)) {
-    data <- split_col(data = data, path = path, count = "count", sep = sep)
+    data_ <- split_col(data = data_, path = path, count = "count", sep = sep)
   } else {
-    data <- data[, c(cols, "count")]
-    names(data) <- c(paste0("depth_", seq_along(cols)), "count")
+    data_ <- data_[, .SD, .SDcols = c(cols, "count")]
+    data.table::setnames(data_, c(paste0("depth_", seq_along(cols)), "count"))
   }
 
-  cols_ <- names(data)[names(data) != "count"]
-  count_ <- "count"
-  prefix_ <- "depth"
+  data.table::setDT(data_)
+  cols_ <- setdiff(names(data_), "count")
 
-  data[is.na(data)] <- 'NA'
-  data <- stats::aggregate(
-    formula = stats::as.formula(paste0("count", "~",
-                                       paste0(cols_, collapse = "+"))),
-    data = data,
-    FUN = sum
-  )
-  data[data == 'NA'] <- NA
-  names(data) <- c(paste0(prefix_, "_", seq_along(cols_)), "count")
-  return(data)
+  for (col in cols_) {
+    data_[is.na(get(col)), (col) := "NA"]
+  }
+
+  data_ <- data_[, list("count" = sum(get("count"))), by = cols_]
+
+  for (col in cols_) {
+    data_[get(col) == "NA", (col) := NA]
+  }
+  data.table::setnames(data_, c(paste0("depth_", seq_along(cols_)), "count"))
+  return(data.table::setDF(data_))
 }
 
 #' Crée un dataframe sous la forme interaction "source", interaction "cible",
