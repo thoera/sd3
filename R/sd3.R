@@ -133,7 +133,7 @@ from_aggregated_paths <- function(data, cols = NULL, path = NULL,
     stop("You have to use one of the 'cols' or 'path' argument.")
   }
   if (!is.null(cols) && !is.null(path)) {
-    stop("You cannot use the 'cols' and the 'path' argument at the same time")
+    stop("You cannot use the 'cols' and the 'path' argument at the same time.")
   }
 
   if (is.null(cols)) {
@@ -190,7 +190,7 @@ aggregate_by_path <- function(data, cols = NULL, path = NULL, sep = "-") {
     stop("You have to use one of the 'cols' or 'path' argument.")
   }
   if (!is.null(cols) && !is.null(path)) {
-    stop("You cannot use the 'cols' and the 'path' argument at the same time")
+    stop("You cannot use the 'cols' and the 'path' argument at the same time.")
   }
   data_ <- data.table::copy(data)
   data.table::setDT(data_)
@@ -198,23 +198,14 @@ aggregate_by_path <- function(data, cols = NULL, path = NULL, sep = "-") {
 
   if (is.null(cols)) {
     data_ <- split_col(data = data_, path = path, count = "count", sep = sep)
+    data.table::setDT(data_)
   } else {
     data_ <- data_[, .SD, .SDcols = c(cols, "count")]
     data.table::setnames(data_, c(paste0("depth_", seq_along(cols)), "count"))
   }
 
-  data.table::setDT(data_)
   cols_ <- setdiff(names(data_), "count")
-
-  for (col in cols_) {
-    data_[is.na(get(col)), (col) := "NA"]
-  }
-
   data_ <- data_[, list("count" = sum(get("count"))), by = cols_]
-
-  for (col in cols_) {
-    data_[get(col) == "NA", (col) := NA]
-  }
   data.table::setnames(data_, c(paste0("depth_", seq_along(cols_)), "count"))
   return(data.table::setDF(data_))
 }
